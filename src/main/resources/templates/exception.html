@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exception</title>
+</head>
+<body>
+
+<h1>Something went wrong!</h1>
+
+<p>Exception message: <span th:text = "${exception.getMessage()}"></span></p>
+    <p>HttpStatus: <span th:text = "${exception.httpStatus}">status</span></p>
