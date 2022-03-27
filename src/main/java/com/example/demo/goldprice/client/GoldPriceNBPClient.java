@@ -13,15 +13,17 @@ import java.net.URL;
 
 @Component
 class GoldPriceNBPClient implements IGoldPriceNBPClient{
+
+    @Override
     public Document fetchGoldPrices() throws IOException, ParserConfigurationException, SAXException {
-        URL url = new URL("http://api.nbp.pl/api/cenyzlota/last/14/?format=xml");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.connect();
+        final var url = new URL("http://api.nbp.pl/api/cenyzlota/last/14/?format=xml");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.connect();
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
 
-        return db.parse(conn.getInputStream());
+        return db.parse(connection.getInputStream());
     }
 }

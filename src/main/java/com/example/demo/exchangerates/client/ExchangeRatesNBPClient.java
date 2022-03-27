@@ -8,31 +8,41 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Component
 class ExchangeRatesNBPClient implements IExchangeRatesNBPClient{
 
+    @Override
     public Document fetchExchangeRates(String currencyCode) throws ParserConfigurationException, IOException, SAXException {
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
 
-        URL urlA = new URL("https://api.nbp.pl/api/exchangerates/rates/a/" + currencyCode + "/last/5/?format=xml");
-        HttpURLConnection connA = (HttpURLConnection) urlA.openConnection();
-        connA.setRequestMethod("GET");
-        connA.connect();
+        final var urlA = new URL("http://api.nbp.pl/api/exchangerates/rates/a/" + currencyCode + "/last/5/?format=xml");
 
-        int resA = connA.getResponseCode();
-        if(resA != 200) {
-            URL urlB = new URL("https://api.nbp.pl/api/exchangerates/rates/b/" + currencyCode + "/last/5/?format=xml");
-            HttpURLConnection connB = (HttpURLConnection) urlB.openConnection();
-            connB.setRequestMethod("GET");
-            connB.connect();
-            return db.parse(connB.getInputStream());
+        try (final var inputStream = fetchRate(urlA)) {
+            return db.parse(inputStream);
+        } catch (Exception e) {
+            final var urlB = new URL("http://api.nbp.pl/api/exchangerates/rates/b/" + currencyCode + "/last/5/?format=xml");
+            final var inputStream = fetchRate(urlB);
+            return db.parse(inputStream);
         }
-        else
-            return db.parse(connA.getInputStream());
+    }
+
+    private InputStream fetchRate(final URL url) throws IOException {
+        final var connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.connect();
+
+        if(connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            connection.disconnect();
+            throw new ConnectException();
+        }
+
+        return connection.getInputStream();
     }
 }

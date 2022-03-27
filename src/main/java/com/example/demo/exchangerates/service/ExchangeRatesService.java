@@ -28,6 +28,7 @@ class ExchangeRatesService implements IExchangeRatesService{
         this.exchangeRatesNBPClient = exchangeRatesNBPClient;
     }
 
+    @Override
     public List<ExchangeRates> getExchangeRates(String currencyCode) throws ParserConfigurationException, IOException, SAXException, CurrencyNotFoundException {
 
         List<ExchangeRates> list = new ArrayList<>();
@@ -50,7 +51,7 @@ class ExchangeRatesService implements IExchangeRatesService{
         return list;
     }
 
-    private void checkForException(String currencyCode) throws CurrencyNotFoundException {
+    void checkForException(String currencyCode) throws CurrencyNotFoundException {
         try {
             Currency code = Currency.getInstance(currencyCode.toUpperCase());
         }
