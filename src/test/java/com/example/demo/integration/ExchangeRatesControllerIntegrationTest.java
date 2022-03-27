@@ -30,7 +30,8 @@ public class ExchangeRatesControllerIntegrationTest {
         String content = result.getResponse().getContentAsString();
         String value = "<td>";
         int count = countMatches(content, value);
-        assertEquals(5, count/2);
+        int expectedListLength = 5;
+        assertEquals(expectedListLength, count/2);
     }
 
     @Test

@@ -1,5 +1,6 @@
-package com.example.demo.exchangerates;
+package com.example.demo.exchangerates.service;
 
+import com.example.demo.exchangerates.model.ExchangeRates;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.w3c.dom.Document;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ExchangeRatesService {
+class ExchangeRatesService implements IExchangeRatesService{
 
     public List<ExchangeRates> getExchangeRates(@PathVariable String currencyCode) throws ParserConfigurationException, IOException, SAXException {
 
@@ -43,7 +44,7 @@ public class ExchangeRatesService {
         return list;
     }
 
-    private Document connectHTTP(String currencyCode) throws ParserConfigurationException, IOException, SAXException {
+    public Document connectHTTP(String currencyCode) throws ParserConfigurationException, IOException, SAXException {
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();

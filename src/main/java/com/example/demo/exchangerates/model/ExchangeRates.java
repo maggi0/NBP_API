@@ -1,4 +1,4 @@
-package com.example.demo.exchangerates;
+package com.example.demo.exchangerates.model;
 
 import java.time.LocalDate;
 

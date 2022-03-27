@@ -1,4 +1,4 @@
-package com.example.demo.goldprice;
+package com.example.demo.goldprice.model;
 
 import java.time.LocalDate;
 

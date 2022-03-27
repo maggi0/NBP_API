@@ -1,5 +1,6 @@
-package com.example.demo.goldprice;
+package com.example.demo.goldprice.service;
 
+import com.example.demo.goldprice.model.GoldPrice;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,8 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GoldPriceService {
+class GoldPriceService implements IGoldPriceService{
 
+    @Override
     public List<GoldPrice> getGoldPrice() throws IOException, ParserConfigurationException, SAXException {
 
         List<GoldPrice> list = new ArrayList<>();
@@ -39,7 +41,8 @@ public class GoldPriceService {
         return list;
     }
 
-    private Document connectHTTP() throws IOException, ParserConfigurationException, SAXException {
+    @Override
+    public Document connectHTTP() throws IOException, ParserConfigurationException, SAXException {
         URL url = new URL("http://api.nbp.pl/api/cenyzlota/last/14/?format=xml");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");

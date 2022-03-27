@@ -30,7 +30,8 @@ public class GoldPriceControllerIntegrationTest {
         String content = result.getResponse().getContentAsString();
         String value = "<td>";
         int count = countMatches(content, value);
-        assertEquals(14, count/2);
+        int expectedListLength = 14;
+        assertEquals(expectedListLength, count/2);
     }
 
     @Test

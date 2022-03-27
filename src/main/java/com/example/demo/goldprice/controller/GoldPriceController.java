@@ -1,5 +1,7 @@
-package com.example.demo.goldprice;
+package com.example.demo.goldprice.controller;
 
+import com.example.demo.goldprice.model.GoldPrice;
+import com.example.demo.goldprice.service.IGoldPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +15,10 @@ import java.util.List;
 @Controller
 public class GoldPriceController {
 
-    private final GoldPriceService goldPriceService;
+    private final IGoldPriceService goldPriceService;
 
     @Autowired
-    public GoldPriceController(GoldPriceService goldPriceService)
+    public GoldPriceController(IGoldPriceService goldPriceService)
     {
         this.goldPriceService = goldPriceService;
     }

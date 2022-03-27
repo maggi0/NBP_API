@@ -1,6 +1,8 @@
-package com.example.demo.exchangerates;
+package com.example.demo.exchangerates.controller;
 
 import com.example.demo.exception.CurrencyNotFoundException;
+import com.example.demo.exchangerates.model.ExchangeRates;
+import com.example.demo.exchangerates.service.IExchangeRatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +19,10 @@ import java.util.Locale;
 @Controller
 public class ExchangeRatesController {
 
-    private final ExchangeRatesService exchangeRatesService;
+    private final IExchangeRatesService exchangeRatesService;
 
     @Autowired
-    public ExchangeRatesController(ExchangeRatesService exchangeRatesService)
+    public ExchangeRatesController(IExchangeRatesService exchangeRatesService)
     {
         this.exchangeRatesService = exchangeRatesService;
     }
