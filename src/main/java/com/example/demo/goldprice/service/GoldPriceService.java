@@ -1,5 +1,6 @@
 package com.example.demo.goldprice.service;
 
+import com.example.demo.goldprice.client.IGoldPriceNBPClient;
 import com.example.demo.goldprice.model.GoldPrice;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -8,12 +9,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +18,18 @@ import java.util.List;
 @Service
 class GoldPriceService implements IGoldPriceService{
 
+    private final IGoldPriceNBPClient goldPriceNBPClient;
+
+    GoldPriceService(IGoldPriceNBPClient goldPriceNBPClient) {
+        this.goldPriceNBPClient = goldPriceNBPClient;
+    }
+
     @Override
     public List<GoldPrice> getGoldPrice() throws IOException, ParserConfigurationException, SAXException {
 
         List<GoldPrice> list = new ArrayList<>();
 
-        Document doc = connectHTTP();
+        Document doc = goldPriceNBPClient.fetchGoldPrices();
         NodeList goldPriceNodes = doc.getElementsByTagName("CenaZlota");
 
         for (int i = 0; i < goldPriceNodes.getLength(); i++) {
@@ -39,18 +42,5 @@ class GoldPriceService implements IGoldPriceService{
             }
         }
         return list;
-    }
-
-    @Override
-    public Document connectHTTP() throws IOException, ParserConfigurationException, SAXException {
-        URL url = new URL("http://api.nbp.pl/api/cenyzlota/last/14/?format=xml");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.connect();
-
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = dbf.newDocumentBuilder();
-
-        return db.parse(conn.getInputStream());
     }
 }

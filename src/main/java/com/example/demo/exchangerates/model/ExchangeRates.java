@@ -3,8 +3,8 @@ package com.example.demo.exchangerates.model;
 import java.time.LocalDate;
 
 public class ExchangeRates {
-    private LocalDate date;
-    private Double exchangeRate;
+    private final LocalDate date;
+    private final Double exchangeRate;
 
     public ExchangeRates(LocalDate date, Double exchangeRate) {
         this.date = date;
@@ -15,16 +15,8 @@ public class ExchangeRates {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public Double getExchangeRate() {
         return exchangeRate;
-    }
-
-    public void setExchangeRate(Double exchangeRate) {
-        this.exchangeRate = exchangeRate;
     }
 
     @Override

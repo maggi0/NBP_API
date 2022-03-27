@@ -3,8 +3,8 @@ package com.example.demo.goldprice.model;
 import java.time.LocalDate;
 
 public class GoldPrice {
-    private LocalDate date;
-    private Double price;
+    private final LocalDate date;
+    private final Double price;
 
     public GoldPrice(LocalDate date, Double price) {
         this.date = date;
@@ -15,16 +15,8 @@ public class GoldPrice {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public Double getPrice() {
         return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     @Override

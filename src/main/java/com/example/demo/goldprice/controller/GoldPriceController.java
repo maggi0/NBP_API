@@ -2,7 +2,6 @@ package com.example.demo.goldprice.controller;
 
 import com.example.demo.goldprice.model.GoldPrice;
 import com.example.demo.goldprice.service.IGoldPriceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,6 @@ public class GoldPriceController {
 
     private final IGoldPriceService goldPriceService;
 
-    @Autowired
     public GoldPriceController(IGoldPriceService goldPriceService)
     {
         this.goldPriceService = goldPriceService;
