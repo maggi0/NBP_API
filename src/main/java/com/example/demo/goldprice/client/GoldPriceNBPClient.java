@@ -16,7 +16,7 @@ class GoldPriceNBPClient implements IGoldPriceNBPClient{
 
     @Override
     public Document fetchGoldPrices() throws IOException, ParserConfigurationException, SAXException {
-        final var url = new URL("http://api.nbp.pl/api/cenyzlota/last/14/?format=xml");
+        final var url = new URL("http://api.nbp.pl/api/cenyzlota/last/20/?format=xml");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.connect();

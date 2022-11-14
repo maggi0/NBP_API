@@ -44,7 +44,7 @@ class ExchangeRatesService implements IExchangeRatesService{
                 Element eElement = (Element) nNode;
                 LocalDate date = LocalDate.parse(eElement.getElementsByTagName("EffectiveDate").item(0).getTextContent());
                 double price = Double.parseDouble(eElement.getElementsByTagName("Mid").item(0).getTextContent());
-                BigDecimal exRate = new BigDecimal(1/price).setScale(5, RoundingMode.HALF_UP);
+                BigDecimal exRate = BigDecimal.valueOf(price).setScale(5, RoundingMode.HALF_UP);
                 list.add(new ExchangeRates(date, exRate.doubleValue()));
             }
         }
@@ -53,7 +53,7 @@ class ExchangeRatesService implements IExchangeRatesService{
 
     void checkForException(String currencyCode) throws CurrencyNotFoundException {
         try {
-            Currency code = Currency.getInstance(currencyCode.toUpperCase());
+            Currency.getInstance(currencyCode.toUpperCase());
         }
         catch (IllegalArgumentException e) {
             throw new CurrencyNotFoundException("Currency corresponding to code " + currencyCode + " not found!");

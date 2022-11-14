@@ -22,12 +22,12 @@ class ExchangeRatesNBPClient implements IExchangeRatesNBPClient{
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
 
-        final var urlA = new URL("http://api.nbp.pl/api/exchangerates/rates/a/" + currencyCode + "/last/5/?format=xml");
+        final var urlA = new URL("http://api.nbp.pl/api/exchangerates/rates/a/" + currencyCode + "/last/20/?format=xml");
 
         try (final var inputStream = fetchRate(urlA)) {
             return db.parse(inputStream);
         } catch (Exception e) {
-            final var urlB = new URL("http://api.nbp.pl/api/exchangerates/rates/b/" + currencyCode + "/last/5/?format=xml");
+            final var urlB = new URL("http://api.nbp.pl/api/exchangerates/rates/b/" + currencyCode + "/last/20/?format=xml");
             final var inputStream = fetchRate(urlB);
             return db.parse(inputStream);
         }

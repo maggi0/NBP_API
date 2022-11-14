@@ -4,7 +4,6 @@ import com.example.demo.exception.CurrencyNotFoundException;
 import com.example.demo.exchangerates.client.IExchangeRatesNBPClient;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

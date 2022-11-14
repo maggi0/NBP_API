@@ -42,6 +42,4 @@ public class ExchangeRatesControllerIntegrationTest {
         int status = result.getResponse().getStatus();
         assertEquals(404, status);
     }
-
-
 }
